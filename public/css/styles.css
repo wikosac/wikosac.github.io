@@ -20,15 +20,45 @@ h6 {
   min-height: 100%;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .highlighted {
-  background-color: yellow;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+}
+
+.highlighted > h3 {
+  font-weight: bold;
+  color: blue;
 }
 
 .fade-element {
   opacity: 1;
-  transition: opacity 1s ease-in-out; /* CSS transition for smooth animation */
+  animation: fadeIn 0.5s ease-out; /* Apply the animation */
+}
+
+.visible {
+  opacity: 1;
 }
 
 .hidden {
   opacity: 0;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #4269f5, #42eff5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
