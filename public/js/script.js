@@ -64,10 +64,14 @@ function highlight(topElement, target) {
   const rect = topElement.getBoundingClientRect();
   if (rect.bottom < 200) {
     target.classList.add("highlighted");
-  } else {
-    topElement.classList.add("highlighted");
+    if (target.classList.contains("highlighted")) {
+      topElement.classList.remove("highlighted");
+    }
   }
-  return rect.bottom < 200;
+}
+
+function isHighlighted(element) {
+  return element.classList.contains("highlighted");
 }
 
 function isVisibleFade(element) {
@@ -118,51 +122,47 @@ for (let i = 1; i <= 9; i++) {
 }
 
 function handleScroll() {
-  const scrollPosition = window.scrollY;
   let bgImg = "me";
 
-  for (let i = 1; i <= 9; i++) {
+  for (let i = 1; i < 9; i++) {
     const variableName = `section${i}`;
     window[variableName] = document.getElementById(`port${i}`);
     window[variableName].classList.remove("highlighted");
-    const detailDiv = `detailport${i}`;
-    window[detailDiv] = document.getElementById(`detailport${i}`);
   }
 
-  if (isVisible(scrollPosition, home, section1)) {
-    bgImg = "me";
-    highlight(home, section1);
-    fadeOut(about);
-    fadeOut(contact);
-  } else if (isVisible(scrollPosition, section1, section2)) {
+  highlight(home, section1);
+  for (let i = 1; i < 9; i++) {
+    const section = `sections${i}`;
+    const section2nd = `sections${i + 1}`;
+    window[section] = document.getElementById(`port${i}`);
+    window[section2nd] = document.getElementById(`port${i + 1}`);
+    highlight(window[section], window[section2nd]);
+  }
+
+  if (isHighlighted(section1)) {
     bgImg = "yuubaca";
-    highlight(section1, section2);
     fadeOut(about);
     fadeOut(contact);
-  } else if (isVisible(scrollPosition, section2, section3)) {
+  } else if (isHighlighted(section2)) {
     bgImg = "3food";
-    highlight(section2, section3);
-  } else if (isVisible(scrollPosition, section3, section4)) {
-    bgImg = "speakuy";
-    highlight(section3, section4);
-  } else if (isVisible(scrollPosition, section4, section5)) {
-    bgImg = "storyapp";
-    highlight(section4, section5);
-  } else if (isVisible(scrollPosition, section5, section6)) {
-    bgImg = "githubuser";
-    highlight(section5, section6);
-  } else if (isVisible(scrollPosition, section6, section7)) {
-    bgImg = "telucanteen";
-    highlight(section6, section7);
-  } else if (isVisible(scrollPosition, section7, section8)) {
-    bgImg = "hitungbmi";
-    highlight(section7, section8);
-  } else if (isVisible(scrollPosition, section8, section9)) {
-    bgImg = "mobpro2";
-    highlight(section8, section9);
     fadeOut(about);
     fadeOut(contact);
-  } else if (isVisible(scrollPosition, section9, about)) {
+  } else if (isHighlighted(section3)) {
+    bgImg = "speakuy";
+  } else if (isHighlighted(section4)) {
+    bgImg = "storyapp";
+  } else if (isHighlighted(section5)) {
+    bgImg = "githubuser";
+  } else if (isHighlighted(section6)) {
+    bgImg = "telucanteen";
+  } else if (isHighlighted(section7)) {
+    bgImg = "hitungbmi";
+  } else if (isHighlighted(section8)) {
+    bgImg = "mobpro2";
+    section9.classList.remove("highlighted");
+    fadeOut(about);
+    fadeOut(contact);
+  } else if (isHighlighted(section9)) {
     bgImg = "gasdect";
     const rect = section9.getBoundingClientRect();
     if (rect.bottom < 400) {
@@ -171,15 +171,13 @@ function handleScroll() {
     if (rect.bottom < 100) {
       fadeIn(contact);
     }
+    if (rect.bottom < 30) {
+      section9.classList.remove("highlighted");
+    }
   } else {
     bgImg = "me";
-    fadeIn(about);
-    fadeIn(contact);
-    for (let i = 1; i <= 9; i++) {
-      const variableName = `section${i}`;
-      window[variableName].classList.remove("highlighted");
-    }
   }
+
   sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
 }
 
