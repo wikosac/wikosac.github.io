@@ -21,6 +21,18 @@ function hover(element) {
   });
 }
 
+function hoverName(element) {
+  element.addEventListener("mouseenter", function () {
+    element.classList.remove("animated-text");
+    element.classList.add("gradient-text-2");
+  });
+
+  element.addEventListener("mouseleave", function () {
+    element.classList.remove("gradient-text-2");
+    element.classList.add("animated-text");
+  });
+}
+
 const resume = document.getElementById("viewResume");
 resume.addEventListener("click", function () {
   window.open("https://drive.google.com/file/d/1WBCvyLmUBuSXLa7OuRPSo7HA2-jRJlFj/view?usp=drive_link", "_blank");
@@ -99,30 +111,20 @@ function fadeOut(element) {
   element.classList.remove("fade-element");
 }
 
-function addDetailClick(target) {
-  detail.addEventListener("click", () => {
-    show(target);
-  });
-}
-
-const nav = document.getElementById("nav-sidebar");
-const sidebar = document.getElementById("sidebar-image");
-const home = document.getElementById("home");
-const about = document.getElementById("about");
-const contact = document.getElementById("contact");
-const detail = document.getElementById("detail");
-
-for (let i = 1; i <= 9; i++) {
-  const variableName = `section${i}`;
-  window[variableName] = document.getElementById(`port${i}`);
-  window[variableName].style.padding = "16px";
-}
-
 let isAnimationInProgress = false;
 
 function startAnimation() {
-  if (!isAnimationInProgress) {
+  if (!isAnimationInProgress && sidebar.classList.contains("slide-in-animation-2")) {
+    sidebar.classList.remove("slide-in-animation-2");
+    sidebar.classList.add("slide-in-animation");
     isAnimationInProgress = true;
+  }
+  if (!isAnimationInProgress && sidebar.classList.contains("slide-in-animation")) {
+    sidebar.classList.remove("slide-in-animation");
+    sidebar.classList.add("slide-in-animation-2");
+    isAnimationInProgress = true;
+  }
+  if (!sidebar.classList.contains("slide-in-animation") && !sidebar.classList.contains("slide-in-animation-2")) {
     sidebar.classList.add("slide-in-animation");
   }
 }
@@ -137,6 +139,40 @@ function addStyleWithDelay() {
   setTimeout(function () {
     targetElement.style.backgroundColor = "orange";
   }, 2000); // Delay in milliseconds (2 seconds in this example)
+}
+
+function addElement() {
+  const detailHover = `<div id="divToDelete" class="w3-display-middle w3-display-hover">
+  <button id="detail" type="button" class="w3-blue w3-animate-opacity w3-btn w3-round" onclick="addDetailClick()">Close</button>
+  </div>`;
+  sidebar.innerHTML = detailHover;
+}
+
+function addDetailClick() {
+  const detail = document.getElementById("detail");
+  detail.addEventListener("click", function () {
+    // window.scrollTo({
+    //   top: 7470,
+    //   behavior: 'smooth'
+    // });
+    nav.style.width = "0%";
+    content.style.marginLeft = "0%";
+  });
+}
+
+const name = document.getElementById("name");
+hoverName(name);
+const nav = document.getElementById("nav-sidebar");
+const sidebar = document.getElementById("sidebar-image");
+const content = document.getElementById("page-content");
+const home = document.getElementById("home");
+const about = document.getElementById("about");
+const contact = document.getElementById("contact");
+
+for (let i = 1; i <= 9; i++) {
+  const variableName = `section${i}`;
+  window[variableName] = document.getElementById(`port${i}`);
+  window[variableName].style.padding = "16px";
 }
 
 function handleScroll() {
@@ -155,17 +191,18 @@ function handleScroll() {
     window[section] = document.getElementById(`port${i}`);
     window[section2nd] = document.getElementById(`port${i + 1}`);
     highlight(window[section], window[section2nd]);
-    // if (window[section] !== home || window[section] !== about) {
-    //   nav.style.padding = "16px";
+    // if (isHighlighted(window[section]) == true) {
+    //   sidebar.classList.add("w3-round-xlarge");
     // }
   }
 
   if (isHighlighted(section1)) {
     bgImg = "yuubaca";
+    sidebar.classList.add("w3-round-xlarge");
+    nav.style.padding = "32px 40px";
     fadeOut(about);
     fadeOut(contact);
     startAnimation();
-    nav.style.padding = "32px 40px";
   } else if (isHighlighted(section2)) {
     bgImg = "3food";
     fadeOut(about);
@@ -187,9 +224,13 @@ function handleScroll() {
     fadeOut(contact);
   } else if (isHighlighted(section9)) {
     bgImg = "gasdect";
+    sidebar.classList.add("w3-round-xlarge");
     nav.style.padding = "32px 40px";
+    nav.style.width = "25%";
+    content.style.marginLeft = "25%";
 
     const rect = section9.getBoundingClientRect();
+    // console.log(window.scrollY);
     if (rect.bottom < 400) {
       fadeIn(about);
     }
@@ -198,14 +239,24 @@ function handleScroll() {
     }
     if (rect.bottom < 30) {
       bgImg = "me";
-      section9.classList.remove("highlighted");
       nav.style.padding = "";
+      sidebar.classList.remove("w3-round-xlarge");
+      section9.classList.remove("highlighted");
+    } else {
+      startAnimation();
+      sidebar.innerHTML = "";
+    }
+    if (window.scrollY < 1000) {
+      bgImg = "me";
+      nav.style.padding = "";
+      sidebar.classList.remove("w3-round-xlarge");
     }
   } else {
     bgImg = "me";
+    nav.style.padding = "";
+    sidebar.classList.remove("w3-round-xlarge");
     fadeOut(about);
     fadeOut(contact);
-    nav.style.padding = "";
     // for (let i = 1; i < 9; i++) {
     //   const section = `sections${i}`;
     //   window[section] = document.getElementById(`port${i}`);
@@ -213,12 +264,13 @@ function handleScroll() {
   }
 
   sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
+
+  // if (window.scrollY >= 7470) {
+  //   addElement();
+  // }
 }
 
 window.addEventListener("scroll", handleScroll);
-
-// if (isHighlighted(section1)) {
-//   startAnimation();
 
 // } else if (isHighlighted(section2)) {
 // } else if (isHighlighted(section3)) {
