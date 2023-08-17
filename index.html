@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="./public/css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
   </head>
   <body>
     <!-- Sidebar with image -->
-    <nav id="nav-sidebar" class="w3-sidebar w3-hide-medium w3-hide-small" style="width: 25%; margin-bottom: 100px;">
+    <nav id="nav-sidebar" class="w3-sidebar w3-hide-medium w3-hide-small" style="width: 25%; margin-bottom: 100px">
       <div id="sidebar-image" class="bgimg w3-display-container" style="background-image: url('./public/img/me.jpg')"></div>
     </nav>
 
@@ -36,10 +39,10 @@
       <!-- Header -->
       <header class="w3-container w3-center" style="padding: 148px 16px" id="home">
         <h1 id="name" class="w3-jumbo animated-text"><b>Dwiko Indrawansyah</b></h1>
-        <p>Android Developer.</p>
+        <p class="w3-xxlarge" style="font-family: 'Dancing Script', cursive">Android Developer.</p>
         <img src="./public/img/me.jpg" class="w3-image w3-hide-large w3-hide-small w3-round" style="display: block; width: 60%; margin: auto" />
         <img src="./public/img/me.jpg" class="w3-image w3-hide-large w3-hide-medium w3-round" width="1000" height="1333" />
-        <button id="viewResume" class="w3-button w3-border w3-border-blue w3-hover-blue w3-padding-large w3-margin-top w3-round">
+        <button id="viewResume" class="w3-button w3-border w3-border-blue w3-padding-large w3-margin-top w3-round btn-hover">
           <!-- <i class="fa fa-eye"></i>  -->
           View Resume
         </button>
@@ -47,46 +50,61 @@
 
       <!-- Portfolio Section -->
       <div class="w3-padding-32 w3-content" id="portfolio">
-        <div class="container">
-          <h2 class="gradient-text" style="font-weight: bold">My Portfolio</h2>
-          <img src="./public/img/android.gif" alt="Animated GIF" width="100" height="100" />
+        <div class="flex-container">
+          <h2 class="gradient-text flex-item" style="font-weight: bold">My Portfolio</h2>
+          <img class="flex-item" src="./public/img/android.gif" alt="Animated GIF" width="100" height="100" />
         </div>
         <hr class="w3-opacity" />
 
         <!-- Grid for photos -->
         <div class="w3-row-padding" style="margin: 0 -16px">
           <section id="port1">
-            <h3 class="w3-text-grey">YuuBaca</h3>
-            <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
+            <h3>YuuBaca</h3>
+            <div class="w3-row">
+              <div class="w3-col s3"><img src="./public/img/y1.jpg" width="200px" height="270px" id="y1" /></div>
+              <div class="w3-col s3"><img src="./public/img/y2.jpg" width="200px" height="270px" id="y2" /></div>
+              <div class="w3-col s3"><img src="./public/img/y3.jpg" width="200px" height="270px" id="y3" /></div>
+              <div class="w3-col s3"><img src="./public/img/y4.jpg" width="200px" height="270px" id="y4" /></div>
+            </div>
             <p>Description:</p>
             <p>YuuBaca is a Digital Library application, an application that can help students and the public to read books for free, without any interruptions or ads, anywhere and anytime.</p>
-            <p>Technology:</p>
-            <ul>
-              <li>Kotlin</li>
-              <li>Laravel</li>
-            </ul>
-            <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
+            <div class="flex-container">
+              <div class="flex-item">
+                <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id" target="_blank" class="btn-hover">
+                  <img src="./public/img/icons/google-play.svg" width="30" height="30" alt="Google Play" />
+                  App link
+                </a>
+              </div>
+              <ul class="horizontal-list flex-item">
+                <li>
+                  <img src="./public/img/icons/kotlin.svg" width="30" height="30" alt="Kotlin" />
+                </li>
+                <li>
+                  <img src="./public/img/icons/laravel.svg" width="30" height="30" alt="Laravel" />
+                </li>
+              </ul>
+            </div>
           </section>
           <section id="port2">
-            <h3 class="w3-text-grey">3Food</h3>
+            <h3>3Food</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port3">
-            <h3 class="w3-text-grey">Speakuy</h3>
+            <h3>Speakuy</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port4">
-            <h3 class="w3-text-grey">Story App</h3>
+            <h3>Story App</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port5">
-            <h3 class="w3-text-grey">Github User</h3>
+            <h3>Github User</h3>
             <div class="w3-row">
               <div class="w3-col s4"><img src="./public/img/githubuser.jpg" width="300px" height="500px" /></div>
               <div class="w3-col s4"><img src="./public/img/githubuser.jpg" width="300px" height="500px" /></div>
@@ -96,25 +114,25 @@
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port6">
-            <h3 class="w3-text-grey">Telu Canteen</h3>
+            <h3>Telu Canteen</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port7">
-            <h3 class="w3-text-grey">MobPro 1</h3>
+            <h3>MobPro 1</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port8">
-            <h3 class="w3-text-grey">MobPro 2</h3>
+            <h3>MobPro 2</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
           </section>
           <section id="port9">
-            <h3 class="w3-text-grey">GasDect</h3>
+            <h3>GasDect</h3>
             <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width: 100%" />
             <p>Description:</p>
             <p>App <a href="https://play.google.com/store/apps/details?id=id.standherealone.yuubaca&hl=id">link</a></p>
@@ -150,7 +168,7 @@
       </div>
 
       <!-- Footer. This section contains an ad for W3Schools Spaces. You can leave it to support us. -->
-      <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge" style="margin: -24px">
+      <footer class="w3-container w3-padding-64 w3-light-grey w3-center w3-opacity w3-xlarge spacing-child">
         <a href="https://github.com/wikosac" target="_blank"><i class="fa fa-github w3-hover-opacity" id="github"></i></a>
         <a href="https://www.linkedin.com/in/wikosac" target="_blank"><i class="fa fa-linkedin w3-hover-opacity" id="linkedin"></i></a>
         <i class="fa fa-facebook-official"></i>

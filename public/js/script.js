@@ -12,23 +12,23 @@ function closeNav() {
 function hover(element) {
   element.addEventListener("mouseenter", function () {
     element.style.cursor = "pointer";
-    element.classList.add("w3-text-blue");
+    element.classList.add("gradient-text-2");
   });
 
   element.addEventListener("mouseleave", function () {
     element.style.cursor = "auto";
-    element.classList.remove("w3-text-blue");
+    element.classList.remove("gradient-text-2");
   });
 }
 
 function hoverName(element) {
   element.addEventListener("mouseenter", function () {
     element.classList.remove("animated-text");
-    element.classList.add("gradient-text-2");
+    element.classList.add("animated-text-2");
   });
 
   element.addEventListener("mouseleave", function () {
-    element.classList.remove("gradient-text-2");
+    element.classList.remove("animated-text-2");
     element.classList.add("animated-text");
   });
 }
@@ -160,8 +160,19 @@ function addDetailClick() {
   });
 }
 
-const name = document.getElementById("name");
-hoverName(name);
+function hoverOver(element) {
+  element.addEventListener("mouseenter", function () {
+    element.classList.add("hovered");
+  });
+  element.addEventListener("mouseleave", function () {
+    element.classList.remove("hovered");
+  });
+}
+
+let bgImg = "me";
+
+const myName = document.getElementById("name");
+hoverName(myName);
 const nav = document.getElementById("nav-sidebar");
 const sidebar = document.getElementById("sidebar-image");
 const content = document.getElementById("page-content");
@@ -173,10 +184,30 @@ for (let i = 1; i <= 9; i++) {
   const variableName = `section${i}`;
   window[variableName] = document.getElementById(`port${i}`);
   window[variableName].style.padding = "16px";
+
+  // if (window[variableName].classList.contains("highlighted")) {
+  // }
+}
+
+for (let i = 1; i <= 4; i++) {
+  const imgY = `y${i}`;
+  window[imgY] = document.getElementById(`y${i}`);
+  hoverOver(window[imgY]);
+  window[imgY].addEventListener("mouseenter", () => {
+    if (window[imgY].classList.contains("hovered")) {
+      bgImg = imgY;
+      sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
+      window[imgY].addEventListener("click", () => {
+        nav.style.width = "35%";
+        content.style.marginLeft = "35%";
+      });
+    }
+  });
 }
 
 function handleScroll() {
-  let bgImg = "me";
+  nav.style.width = "25%";
+  content.style.marginLeft = "25%";
 
   for (let i = 1; i < 9; i++) {
     const variableName = `section${i}`;
@@ -191,18 +222,23 @@ function handleScroll() {
     window[section] = document.getElementById(`port${i}`);
     window[section2nd] = document.getElementById(`port${i + 1}`);
     highlight(window[section], window[section2nd]);
-    // if (isHighlighted(window[section]) == true) {
-    //   sidebar.classList.add("w3-round-xlarge");
-    // }
   }
 
   if (isHighlighted(section1)) {
-    bgImg = "yuubaca";
+    bgImg = "y1";
     sidebar.classList.add("w3-round-xlarge");
     nav.style.padding = "32px 40px";
     fadeOut(about);
     fadeOut(contact);
     startAnimation();
+    // for (let i = 1; i <= 4; i++) {
+    //   const imgY = `y${i}`;
+    //   window[imgY] = document.getElementById(`y${i}`);
+    //   hoverOver(window[imgY]);
+    //   if (window[imgY].classList.contains("hovered")) {
+    //     bgImg = imgY;
+    //   }
+    // }
   } else if (isHighlighted(section2)) {
     bgImg = "3food";
     fadeOut(about);
@@ -228,9 +264,7 @@ function handleScroll() {
     nav.style.padding = "32px 40px";
     nav.style.width = "25%";
     content.style.marginLeft = "25%";
-
     const rect = section9.getBoundingClientRect();
-    // console.log(window.scrollY);
     if (rect.bottom < 400) {
       fadeIn(about);
     }
@@ -271,6 +305,7 @@ function handleScroll() {
 }
 
 window.addEventListener("scroll", handleScroll);
+// window.addEventListener("load", onload);
 
 // } else if (isHighlighted(section2)) {
 // } else if (isHighlighted(section3)) {
