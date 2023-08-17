@@ -35,7 +35,7 @@ h6 {
   padding: 20px;
   background-color: white;
   border-radius: 10px;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
+  box-shadow: 0px 4px 8px 8px rgba(0, 0, 0, 0.1); /* Add shadow effect */
 }
 
 .highlighted > h3 {
@@ -61,4 +61,23 @@ h6 {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.slide-in-animation {
+  animation: slideInFromRight 1s forwards; /* Apply animation */
+}
+
+@keyframes slideInFromRight {
+  0% {
+    right: -120px; /* Start position */
+  }
+  100% {
+    right: 0; /* End position */
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns with equal width */
+  gap: 70%; /* Gap between columns */
 }

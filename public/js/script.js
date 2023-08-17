@@ -64,7 +64,7 @@ function highlight(topElement, target) {
   const rect = topElement.getBoundingClientRect();
   if (rect.bottom < 200) {
     target.classList.add("highlighted");
-    if (target.classList.contains("highlighted")) {
+    if (isHighlighted(target)) {
       topElement.classList.remove("highlighted");
     }
   }
@@ -115,10 +115,28 @@ const detail = document.getElementById("detail");
 for (let i = 1; i <= 9; i++) {
   const variableName = `section${i}`;
   window[variableName] = document.getElementById(`port${i}`);
-  window[variableName].style.paddingTop = "8px";
-  window[variableName].style.paddingLeft = "8px";
-  window[variableName].style.paddingRight = "8px";
-  window[variableName].style.paddingBottom = "8px";
+  window[variableName].style.padding = "16px";
+}
+
+let isAnimationInProgress = false;
+
+function startAnimation() {
+  if (!isAnimationInProgress) {
+    isAnimationInProgress = true;
+    sidebar.classList.add("slide-in-animation");
+  }
+}
+
+function endAnimation(before) {
+  if (!isHighlighted(before)) {
+    sidebar.classList.remove("slide-in-animation");
+  }
+}
+
+function addStyleWithDelay() {
+  setTimeout(function () {
+    targetElement.style.backgroundColor = "orange";
+  }, 2000); // Delay in milliseconds (2 seconds in this example)
 }
 
 function handleScroll() {
@@ -137,12 +155,17 @@ function handleScroll() {
     window[section] = document.getElementById(`port${i}`);
     window[section2nd] = document.getElementById(`port${i + 1}`);
     highlight(window[section], window[section2nd]);
+    // if (window[section] !== home || window[section] !== about) {
+    //   nav.style.padding = "16px";
+    // }
   }
 
   if (isHighlighted(section1)) {
     bgImg = "yuubaca";
     fadeOut(about);
     fadeOut(contact);
+    startAnimation();
+    nav.style.padding = "32px 40px";
   } else if (isHighlighted(section2)) {
     bgImg = "3food";
     fadeOut(about);
@@ -164,6 +187,8 @@ function handleScroll() {
     fadeOut(contact);
   } else if (isHighlighted(section9)) {
     bgImg = "gasdect";
+    nav.style.padding = "32px 40px";
+
     const rect = section9.getBoundingClientRect();
     if (rect.bottom < 400) {
       fadeIn(about);
@@ -172,13 +197,35 @@ function handleScroll() {
       fadeIn(contact);
     }
     if (rect.bottom < 30) {
+      bgImg = "me";
       section9.classList.remove("highlighted");
+      nav.style.padding = "";
     }
   } else {
     bgImg = "me";
+    fadeOut(about);
+    fadeOut(contact);
+    nav.style.padding = "";
+    // for (let i = 1; i < 9; i++) {
+    //   const section = `sections${i}`;
+    //   window[section] = document.getElementById(`port${i}`);
+    // }
   }
 
   sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
 }
 
 window.addEventListener("scroll", handleScroll);
+
+// if (isHighlighted(section1)) {
+//   startAnimation();
+
+// } else if (isHighlighted(section2)) {
+// } else if (isHighlighted(section3)) {
+// } else if (isHighlighted(section4)) {
+// } else if (isHighlighted(section5)) {
+// } else if (isHighlighted(section6)) {
+// } else if (isHighlighted(section7)) {
+// } else if (isHighlighted(section8)) {
+// } else if (isHighlighted(section9)) {
+// }
