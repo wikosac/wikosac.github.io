@@ -188,21 +188,53 @@ for (let i = 1; i <= 9; i++) {
   // if (window[variableName].classList.contains("highlighted")) {
   // }
 }
+function hoverHigh() {
+  for (let i = 1; i <= 4; i++) {
+    const imgY = `y${i}`;
+    window[imgY] = document.getElementById(`y${i}`);
+    hoverOver(window[imgY]);
+    window[imgY].addEventListener("mouseenter", () => {
+      if (window[imgY].classList.contains("hovered")) {
+        bgImg = imgY;
+        sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
+        window[imgY].addEventListener("click", () => {
+          nav.style.width = "35%";
+          content.style.marginLeft = "35%";
+        });
+      }
+    });
+  }
+}
 
-for (let i = 1; i <= 4; i++) {
-  const imgY = `y${i}`;
-  window[imgY] = document.getElementById(`y${i}`);
-  hoverOver(window[imgY]);
-  window[imgY].addEventListener("mouseenter", () => {
-    if (window[imgY].classList.contains("hovered")) {
-      bgImg = imgY;
-      sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
-      window[imgY].addEventListener("click", () => {
-        nav.style.width = "35%";
-        content.style.marginLeft = "35%";
-      });
-    }
+function hoverScale(ele) {
+  ele.addEventListener("mouseenter", () => {
+    ele.classList.add("highlightedhover");
   });
+  ele.addEventListener("mouseleave", () => {
+    ele.classList.remove("highlightedhover");
+  });
+}
+
+function display() {
+  highlight(home, section1);
+  for (let i = 1; i < 9; i++) {
+    const section = `sections${i}`;
+    const section2nd = `sections${i + 1}`;
+    window[section] = document.getElementById(`port${i}`);
+    window[section2nd] = document.getElementById(`port${i + 1}`);
+    highlight(window[section], window[section2nd]);
+  }
+}
+
+function applyScale() {
+  for (let i = 1; i < 9; i++) {
+    const variableName = `section${i}`;
+    window[variableName] = document.getElementById(`port${i}`);
+    console.log(i, isHighlighted(window[variableName]));
+    if (isHighlighted(window[variableName])) {
+      hoverScale(window[variableName]);
+    }
+  }
 }
 
 function handleScroll() {
@@ -213,6 +245,89 @@ function handleScroll() {
     const variableName = `section${i}`;
     window[variableName] = document.getElementById(`port${i}`);
     window[variableName].classList.remove("highlighted");
+    console.log(variableName);
+    if (isHighlighted(window[variableName])) {
+      switch (variableName) {
+        case section1:
+          bgImg = "y1";
+          sidebar.classList.add("w3-round-xlarge");
+          nav.style.padding = "32px 40px";
+          fadeOut(about);
+          fadeOut(contact);
+          startAnimation();
+          hoverHigh();
+          break;
+        case section2:
+          bgImg = "3food";
+          fadeOut(about);
+          fadeOut(contact);
+          break;
+        case section3:
+          bgImg = "speakuy";
+
+          break;
+        case section4:
+          bgImg = "storyapp";
+
+          break;
+        case section5:
+          bgImg = "githubuser";
+
+          break;
+        case section6:
+          bgImg = "telucanteen";
+
+          break;
+        case section7:
+          bgImg = "hitungbmi";
+
+          break;
+        case section8:
+          bgImg = "mobpro2";
+          section9.classList.remove("highlighted");
+          fadeOut(about);
+          fadeOut(contact);
+          break;
+        case section9:
+          bgImg = "gasdect";
+          sidebar.classList.add("w3-round-xlarge");
+          nav.style.padding = "32px 40px";
+          nav.style.width = "25%";
+          content.style.marginLeft = "25%";
+          const rect = section9.getBoundingClientRect();
+          if (rect.bottom < 400) {
+            fadeIn(about);
+          }
+          if (rect.bottom < 200) {
+            bgImg = "me";
+            nav.style.padding = "";
+            sidebar.classList.remove("w3-round-xlarge");
+          }
+          const rectA = about.getBoundingClientRect();
+          if (rectA.bottom < 400) {
+            fadeIn(contact);
+          }
+          if (rect.bottom < 30) {
+            section9.classList.remove("highlighted");
+          } else {
+            startAnimation();
+            sidebar.innerHTML = "";
+          }
+          if (window.scrollY < 1000) {
+            bgImg = "me";
+            nav.style.padding = "";
+            sidebar.classList.remove("w3-round-xlarge");
+          }
+          break;
+        default:
+          bgImg = "me";
+          nav.style.padding = "";
+          sidebar.classList.remove("w3-round-xlarge");
+          fadeOut(about);
+          fadeOut(contact);
+          break;
+      }
+    }
   }
 
   highlight(home, section1);
@@ -224,78 +339,83 @@ function handleScroll() {
     highlight(window[section], window[section2nd]);
   }
 
-  if (isHighlighted(section1)) {
-    bgImg = "y1";
-    sidebar.classList.add("w3-round-xlarge");
-    nav.style.padding = "32px 40px";
-    fadeOut(about);
-    fadeOut(contact);
-    startAnimation();
-    // for (let i = 1; i <= 4; i++) {
-    //   const imgY = `y${i}`;
-    //   window[imgY] = document.getElementById(`y${i}`);
-    //   hoverOver(window[imgY]);
-    //   if (window[imgY].classList.contains("hovered")) {
-    //     bgImg = imgY;
-    //   }
-    // }
-  } else if (isHighlighted(section2)) {
-    bgImg = "3food";
-    fadeOut(about);
-    fadeOut(contact);
-  } else if (isHighlighted(section3)) {
-    bgImg = "speakuy";
-  } else if (isHighlighted(section4)) {
-    bgImg = "storyapp";
-  } else if (isHighlighted(section5)) {
-    bgImg = "githubuser";
-  } else if (isHighlighted(section6)) {
-    bgImg = "telucanteen";
-  } else if (isHighlighted(section7)) {
-    bgImg = "hitungbmi";
-  } else if (isHighlighted(section8)) {
-    bgImg = "mobpro2";
-    section9.classList.remove("highlighted");
-    fadeOut(about);
-    fadeOut(contact);
-  } else if (isHighlighted(section9)) {
-    bgImg = "gasdect";
-    sidebar.classList.add("w3-round-xlarge");
-    nav.style.padding = "32px 40px";
-    nav.style.width = "25%";
-    content.style.marginLeft = "25%";
-    const rect = section9.getBoundingClientRect();
-    if (rect.bottom < 400) {
-      fadeIn(about);
-    }
-    if (rect.bottom < 100) {
-      fadeIn(contact);
-    }
-    if (rect.bottom < 30) {
-      bgImg = "me";
-      nav.style.padding = "";
-      sidebar.classList.remove("w3-round-xlarge");
-      section9.classList.remove("highlighted");
-    } else {
-      startAnimation();
-      sidebar.innerHTML = "";
-    }
-    if (window.scrollY < 1000) {
-      bgImg = "me";
-      nav.style.padding = "";
-      sidebar.classList.remove("w3-round-xlarge");
-    }
-  } else {
-    bgImg = "me";
-    nav.style.padding = "";
-    sidebar.classList.remove("w3-round-xlarge");
-    fadeOut(about);
-    fadeOut(contact);
-    // for (let i = 1; i < 9; i++) {
-    //   const section = `sections${i}`;
-    //   window[section] = document.getElementById(`port${i}`);
-    // }
-  }
+  // if (isHighlighted(section1)) {
+  //   bgImg = "y1";
+  //   sidebar.classList.add("w3-round-xlarge");
+  //   nav.style.padding = "32px 40px";
+  //   fadeOut(about);
+  //   fadeOut(contact);
+  //   startAnimation();
+  //   hoverHigh();
+
+  //   // for (let i = 1; i <= 4; i++) {
+  //   //   const imgY = `y${i}`;
+  //   //   window[imgY] = document.getElementById(`y${i}`);
+  //   //   hoverOver(window[imgY]);
+  //   //   if (window[imgY].classList.contains("hovered")) {
+  //   //     bgImg = imgY;
+  //   //   }
+  //   // }
+  // } else if (isHighlighted(section2)) {
+  //   bgImg = "3food";
+  //   fadeOut(about);
+  //   fadeOut(contact);
+  // } else if (isHighlighted(section3)) {
+  //   bgImg = "speakuy";
+  // } else if (isHighlighted(section4)) {
+  //   bgImg = "storyapp";
+  // } else if (isHighlighted(section5)) {
+  //   bgImg = "githubuser";
+  // } else if (isHighlighted(section6)) {
+  //   bgImg = "telucanteen";
+  // } else if (isHighlighted(section7)) {
+  //   bgImg = "hitungbmi";
+  // } else if (isHighlighted(section8)) {
+  //   bgImg = "mobpro2";
+  //   section9.classList.remove("highlighted");
+  //   fadeOut(about);
+  //   fadeOut(contact);
+  // } else if (isHighlighted(section9)) {
+  //   bgImg = "gasdect";
+  //   sidebar.classList.add("w3-round-xlarge");
+  //   nav.style.padding = "32px 40px";
+  //   nav.style.width = "25%";
+  //   content.style.marginLeft = "25%";
+  //   const rect = section9.getBoundingClientRect();
+  //   if (rect.bottom < 400) {
+  //     fadeIn(about);
+  //   }
+  //   if (rect.bottom < 200) {
+  //     bgImg = "me";
+  //     nav.style.padding = "";
+  //     sidebar.classList.remove("w3-round-xlarge");
+  //   }
+  //   const rectA = about.getBoundingClientRect();
+  //   if (rectA.bottom < 400) {
+  //     fadeIn(contact);
+  //   }
+  //   if (rect.bottom < 30) {
+  //     section9.classList.remove("highlighted");
+  //   } else {
+  //     startAnimation();
+  //     sidebar.innerHTML = "";
+  //   }
+  //   if (window.scrollY < 1000) {
+  //     bgImg = "me";
+  //     nav.style.padding = "";
+  //     sidebar.classList.remove("w3-round-xlarge");
+  //   }
+  // } else {
+  //   bgImg = "me";
+  //   nav.style.padding = "";
+  //   sidebar.classList.remove("w3-round-xlarge");
+  //   fadeOut(about);
+  //   fadeOut(contact);
+  //   // for (let i = 1; i < 9; i++) {
+  //   //   const section = `sections${i}`;
+  //   //   window[section] = document.getElementById(`port${i}`);
+  //   // }
+  // }
 
   sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
 
@@ -304,8 +424,36 @@ function handleScroll() {
   // }
 }
 
-window.addEventListener("scroll", handleScroll);
-// window.addEventListener("load", onload);
+const rect = section9.getBoundingClientRect();
+if (rect.bottom > 400) {
+  window.addEventListener("scroll", handleScroll);
+}
+
+// slideshow
+let slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {
+    slideIndex = 1;
+  }
+  slides[slideIndex - 1].style.display = "block";
+  setTimeout(showSlides, 3000); // Change image every 2 seconds
+}
+
+// const gdev = document.getElementById("gdev");
+// gdev.addEventListener("click", () => {
+//   nav.style.width = "0%";
+//   content.style.marginLeft = "0%";
+//   gdev.width = "800";
+//   gdev.height = "600";
+// });
 
 // } else if (isHighlighted(section2)) {
 // } else if (isHighlighted(section3)) {
