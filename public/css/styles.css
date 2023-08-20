@@ -25,7 +25,7 @@ a {
 }
 
 .btn-hover:hover {
-  color: green;
+  color: #3fdb86;
 }
 
 @keyframes fadeIn {
@@ -177,7 +177,7 @@ a {
 }
 
 .horizontal-list li {
-  margin-right: 10px;
+  margin-left: 8px;
 }
 
 .flex-container {

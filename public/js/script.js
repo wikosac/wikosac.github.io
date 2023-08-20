@@ -160,15 +160,6 @@ function addDetailClick() {
   });
 }
 
-function hoverOver(element) {
-  element.addEventListener("mouseenter", function () {
-    element.classList.add("hovered");
-  });
-  element.addEventListener("mouseleave", function () {
-    element.classList.remove("hovered");
-  });
-}
-
 let bgImg = "me";
 
 const myName = document.getElementById("name");
@@ -183,27 +174,38 @@ const contact = document.getElementById("contact");
 for (let i = 1; i <= 9; i++) {
   const variableName = `section${i}`;
   window[variableName] = document.getElementById(`port${i}`);
-  window[variableName].style.padding = "16px";
-
-  // if (window[variableName].classList.contains("highlighted")) {
-  // }
+  window[variableName].style.padding = "12px 24px";
 }
-function hoverHigh() {
-  for (let i = 1; i <= 4; i++) {
-    const imgY = `y${i}`;
-    window[imgY] = document.getElementById(`y${i}`);
-    hoverOver(window[imgY]);
-    window[imgY].addEventListener("mouseenter", () => {
-      if (window[imgY].classList.contains("hovered")) {
-        bgImg = imgY;
-        sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
-        window[imgY].addEventListener("click", () => {
-          nav.style.width = "35%";
-          content.style.marginLeft = "35%";
-        });
-      }
-    });
-  }
+
+function hoverHigh(imgNa, elemen) {
+  hoverOver(elemen);
+  imgHover(elemen, imgNa);
+}
+
+function hoverOver(element) {
+  element.addEventListener("mouseenter", function () {
+    element.classList.add("hovered");
+  });
+  element.addEventListener("mouseleave", function () {
+    element.classList.remove("hovered");
+  });
+}
+
+function imgHover(params, imgName) {
+  params.addEventListener("mouseenter", () => {
+    if (params.classList.contains("hovered")) {
+      bgImg = imgName;
+      sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
+      params.addEventListener("click", () => {
+        nav.style.width = "35%";
+        content.style.marginLeft = "35%";
+      });
+    }
+  });
+}
+
+function removeListen(elm) {
+  elm.removeEventListener("mouseenter");
 }
 
 function hoverScale(ele) {
@@ -226,14 +228,62 @@ function display() {
   }
 }
 
-function applyScale() {
+function applyImg() {
   for (let i = 1; i < 9; i++) {
     const variableName = `section${i}`;
     window[variableName] = document.getElementById(`port${i}`);
-    console.log(i, isHighlighted(window[variableName]));
-    if (isHighlighted(window[variableName])) {
-      hoverScale(window[variableName]);
+    const container = window[variableName].querySelector(".w3-row");
+
+    switch (variableName) {
+      case "section1":
+        makeElement("y", container);
+        break;
+      case "section2":
+        makeElement("f", container);
+        break;
+      case "section3":
+        makeElement("sk", container);
+        break;
+      // case "section4":
+      //   makeElement("", container);
+      //   break;
+      // case "section5":
+      //   makeElement("", container);
+      //   break;
+      // case "section6":
+      //   makeElement("", container);
+      //   break;
+      // case "section7":
+      //   makeElement("", container);
+      //   break;
+      // case "section8":
+      //   makeElement("", container);
+      //   break;
+      // case "section9":
+      //   makeElement("", container);
+      //   break;
+      default:
+        break;
     }
+  }
+}
+
+applyImg();
+// window.addEventListener("load", applyImg);
+
+function makeElement(imgName, container) {
+  for (let i = 1; i <= 4; i++) {
+    const div = document.createElement("div");
+    div.className = "w3-col s3";
+
+    const img = document.createElement("img");
+    img.src = `./public/img/${imgName}${i}.jpg`;
+    img.width = "200";
+    img.height = "270";
+    img.id = `${imgName}${i}`;
+
+    div.appendChild(img);
+    container.appendChild(div);
   }
 }
 
@@ -245,89 +295,6 @@ function handleScroll() {
     const variableName = `section${i}`;
     window[variableName] = document.getElementById(`port${i}`);
     window[variableName].classList.remove("highlighted");
-    console.log(variableName);
-    if (isHighlighted(window[variableName])) {
-      switch (variableName) {
-        case section1:
-          bgImg = "y1";
-          sidebar.classList.add("w3-round-xlarge");
-          nav.style.padding = "32px 40px";
-          fadeOut(about);
-          fadeOut(contact);
-          startAnimation();
-          hoverHigh();
-          break;
-        case section2:
-          bgImg = "3food";
-          fadeOut(about);
-          fadeOut(contact);
-          break;
-        case section3:
-          bgImg = "speakuy";
-
-          break;
-        case section4:
-          bgImg = "storyapp";
-
-          break;
-        case section5:
-          bgImg = "githubuser";
-
-          break;
-        case section6:
-          bgImg = "telucanteen";
-
-          break;
-        case section7:
-          bgImg = "hitungbmi";
-
-          break;
-        case section8:
-          bgImg = "mobpro2";
-          section9.classList.remove("highlighted");
-          fadeOut(about);
-          fadeOut(contact);
-          break;
-        case section9:
-          bgImg = "gasdect";
-          sidebar.classList.add("w3-round-xlarge");
-          nav.style.padding = "32px 40px";
-          nav.style.width = "25%";
-          content.style.marginLeft = "25%";
-          const rect = section9.getBoundingClientRect();
-          if (rect.bottom < 400) {
-            fadeIn(about);
-          }
-          if (rect.bottom < 200) {
-            bgImg = "me";
-            nav.style.padding = "";
-            sidebar.classList.remove("w3-round-xlarge");
-          }
-          const rectA = about.getBoundingClientRect();
-          if (rectA.bottom < 400) {
-            fadeIn(contact);
-          }
-          if (rect.bottom < 30) {
-            section9.classList.remove("highlighted");
-          } else {
-            startAnimation();
-            sidebar.innerHTML = "";
-          }
-          if (window.scrollY < 1000) {
-            bgImg = "me";
-            nav.style.padding = "";
-            sidebar.classList.remove("w3-round-xlarge");
-          }
-          break;
-        default:
-          bgImg = "me";
-          nav.style.padding = "";
-          sidebar.classList.remove("w3-round-xlarge");
-          fadeOut(about);
-          fadeOut(contact);
-          break;
-      }
-    }
   }
 
   highlight(home, section1);
@@ -339,83 +306,88 @@ function handleScroll() {
     highlight(window[section], window[section2nd]);
   }
 
-  // if (isHighlighted(section1)) {
-  //   bgImg = "y1";
-  //   sidebar.classList.add("w3-round-xlarge");
-  //   nav.style.padding = "32px 40px";
-  //   fadeOut(about);
-  //   fadeOut(contact);
-  //   startAnimation();
-  //   hoverHigh();
+  for (let i = 1; i <= 4; i++) {
+    const yVarId = `y${i}`;
+    const fVarId = `f${i}`;
+    const skVarId = `sk${i}`;
+    window[yVarId] = document.getElementById(yVarId);
+    window[fVarId] = document.getElementById(fVarId);
+    window[skVarId] = document.getElementById(skVarId);
 
-  //   // for (let i = 1; i <= 4; i++) {
-  //   //   const imgY = `y${i}`;
-  //   //   window[imgY] = document.getElementById(`y${i}`);
-  //   //   hoverOver(window[imgY]);
-  //   //   if (window[imgY].classList.contains("hovered")) {
-  //   //     bgImg = imgY;
-  //   //   }
-  //   // }
-  // } else if (isHighlighted(section2)) {
-  //   bgImg = "3food";
-  //   fadeOut(about);
-  //   fadeOut(contact);
-  // } else if (isHighlighted(section3)) {
-  //   bgImg = "speakuy";
-  // } else if (isHighlighted(section4)) {
-  //   bgImg = "storyapp";
-  // } else if (isHighlighted(section5)) {
-  //   bgImg = "githubuser";
-  // } else if (isHighlighted(section6)) {
-  //   bgImg = "telucanteen";
-  // } else if (isHighlighted(section7)) {
-  //   bgImg = "hitungbmi";
-  // } else if (isHighlighted(section8)) {
-  //   bgImg = "mobpro2";
-  //   section9.classList.remove("highlighted");
-  //   fadeOut(about);
-  //   fadeOut(contact);
-  // } else if (isHighlighted(section9)) {
-  //   bgImg = "gasdect";
-  //   sidebar.classList.add("w3-round-xlarge");
-  //   nav.style.padding = "32px 40px";
-  //   nav.style.width = "25%";
-  //   content.style.marginLeft = "25%";
-  //   const rect = section9.getBoundingClientRect();
-  //   if (rect.bottom < 400) {
-  //     fadeIn(about);
-  //   }
-  //   if (rect.bottom < 200) {
-  //     bgImg = "me";
-  //     nav.style.padding = "";
-  //     sidebar.classList.remove("w3-round-xlarge");
-  //   }
-  //   const rectA = about.getBoundingClientRect();
-  //   if (rectA.bottom < 400) {
-  //     fadeIn(contact);
-  //   }
-  //   if (rect.bottom < 30) {
-  //     section9.classList.remove("highlighted");
-  //   } else {
-  //     startAnimation();
-  //     sidebar.innerHTML = "";
-  //   }
-  //   if (window.scrollY < 1000) {
-  //     bgImg = "me";
-  //     nav.style.padding = "";
-  //     sidebar.classList.remove("w3-round-xlarge");
-  //   }
-  // } else {
-  //   bgImg = "me";
-  //   nav.style.padding = "";
-  //   sidebar.classList.remove("w3-round-xlarge");
-  //   fadeOut(about);
-  //   fadeOut(contact);
-  //   // for (let i = 1; i < 9; i++) {
-  //   //   const section = `sections${i}`;
-  //   //   window[section] = document.getElementById(`port${i}`);
-  //   // }
-  // }
+    window[yVarId];
+
+    if (isHighlighted(section1)) {
+      bgImg = "y1";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
+      fadeOut(about);
+      fadeOut(contact);
+      startAnimation();
+      hoverHigh(yVarId, window[yVarId]);
+    } else if (isHighlighted(section2)) {
+      bgImg = "f2";
+      hoverHigh(fVarId, window[fVarId]);
+      fadeOut(about);
+      fadeOut(contact);
+    } else if (isHighlighted(section3)) {
+      bgImg = "sk2";
+      hoverHigh(skVarId, window[skVarId]);
+    } else if (isHighlighted(section4)) {
+      bgImg = "storyapp";
+      hoverHigh("", section4);
+    } else if (isHighlighted(section5)) {
+      bgImg = "githubuser";
+      hoverHigh("", section5);
+    } else if (isHighlighted(section6)) {
+      bgImg = "telucanteen";
+      hoverHigh("", section6);
+    } else if (isHighlighted(section7)) {
+      bgImg = "hitungbmi";
+      hoverHigh("", section7);
+    } else if (isHighlighted(section8)) {
+      bgImg = "mobpro2";
+      hoverHigh("", section8);
+      section9.classList.remove("highlighted");
+      fadeOut(about);
+      fadeOut(contact);
+    } else if (isHighlighted(section9)) {
+      bgImg = "gasdect";
+      hoverHigh("", section9);
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
+      nav.style.width = "25%";
+      content.style.marginLeft = "25%";
+      const rect = section9.getBoundingClientRect();
+      if (rect.bottom < 400) {
+        fadeIn(about);
+      }
+      if (rect.bottom < 200) {
+        bgImg = "me";
+        nav.style.padding = "";
+        sidebar.classList.remove("w3-round-xlarge");
+      }
+      const rectA = about.getBoundingClientRect();
+      if (rectA.bottom < 400) {
+        fadeIn(contact);
+      }
+      if (rect.bottom < 30) {
+        section9.classList.remove("highlighted");
+      } else {
+        startAnimation();
+        sidebar.innerHTML = "";
+      }
+      if (window.scrollY < 1000) {
+        bgImg = "me";
+        nav.style.padding = "";
+        sidebar.classList.remove("w3-round-xlarge");
+      }
+    } else {
+      bgImg = "me";
+      nav.style.padding = "";
+      sidebar.classList.remove("w3-round-xlarge");
+    }
+    // end if
+  }
 
   sidebar.style.backgroundImage = `url("./public/img/${bgImg}.jpg")`;
 
@@ -424,9 +396,12 @@ function handleScroll() {
   // }
 }
 
-const rect = section9.getBoundingClientRect();
-if (rect.bottom > 400) {
-  window.addEventListener("scroll", handleScroll);
+window.addEventListener("load", start);
+function start() {
+  const rect = section9.getBoundingClientRect();
+  if (rect.bottom > 400) {
+    window.addEventListener("scroll", handleScroll);
+  }
 }
 
 // slideshow
