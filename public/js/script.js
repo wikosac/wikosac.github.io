@@ -244,15 +244,15 @@ function applyImg() {
       case "section3":
         makeElement("sk", container);
         break;
-      // case "section4":
-      //   makeElement("", container);
-      //   break;
-      // case "section5":
-      //   makeElement("", container);
-      //   break;
-      // case "section6":
-      //   makeElement("", container);
-      //   break;
+      case "section4":
+        makeElement("sa", container);
+        break;
+      case "section5":
+        makeElement("gu", container);
+        break;
+      case "section6":
+        makeElement("tc", container);
+        break;
       // case "section7":
       //   makeElement("", container);
       //   break;
@@ -275,11 +275,13 @@ function makeElement(imgName, container) {
   for (let i = 1; i <= 4; i++) {
     const div = document.createElement("div");
     div.className = "w3-col s3";
+    div.style.padding = "0px 8px";
 
     const img = document.createElement("img");
     img.src = `./public/img/${imgName}${i}.jpg`;
-    img.width = "200";
-    img.height = "270";
+    // img.width = width;
+    // img.height = height;
+    img.style.width = "100%";
     img.id = `${imgName}${i}`;
 
     div.appendChild(img);
@@ -310,11 +312,15 @@ function handleScroll() {
     const yVarId = `y${i}`;
     const fVarId = `f${i}`;
     const skVarId = `sk${i}`;
+    const saVarId = `sa${i}`;
+    const guVarId = `gu${i}`;
+    const tcVarId = `tc${i}`;
     window[yVarId] = document.getElementById(yVarId);
     window[fVarId] = document.getElementById(fVarId);
     window[skVarId] = document.getElementById(skVarId);
-
-    window[yVarId];
+    window[saVarId] = document.getElementById(saVarId);
+    window[guVarId] = document.getElementById(guVarId);
+    window[tcVarId] = document.getElementById(tcVarId);
 
     if (isHighlighted(section1)) {
       bgImg = "y1";
@@ -333,26 +339,26 @@ function handleScroll() {
       bgImg = "sk2";
       hoverHigh(skVarId, window[skVarId]);
     } else if (isHighlighted(section4)) {
-      bgImg = "storyapp";
-      hoverHigh("", section4);
+      bgImg = "sa1";
+      hoverHigh(saVarId, window[saVarId]);
     } else if (isHighlighted(section5)) {
-      bgImg = "githubuser";
-      hoverHigh("", section5);
+      bgImg = "gu1";
+      hoverHigh(guVarId, window[guVarId]);
     } else if (isHighlighted(section6)) {
-      bgImg = "telucanteen";
-      hoverHigh("", section6);
+      bgImg = "tc1";
+      hoverHigh(tcVarId, window[tcVarId]);
     } else if (isHighlighted(section7)) {
       bgImg = "hitungbmi";
-      hoverHigh("", section7);
+      // hoverHigh("", section7);
     } else if (isHighlighted(section8)) {
       bgImg = "mobpro2";
-      hoverHigh("", section8);
+      // hoverHigh("", section8);
       section9.classList.remove("highlighted");
       fadeOut(about);
       fadeOut(contact);
     } else if (isHighlighted(section9)) {
       bgImg = "gasdect";
-      hoverHigh("", section9);
+      // hoverHigh("", section9);
       sidebar.classList.add("w3-round-xlarge");
       nav.style.padding = "32px 40px";
       nav.style.width = "25%";
