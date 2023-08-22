@@ -332,26 +332,40 @@ function handleScroll() {
       hoverHigh(yVarId, window[yVarId]);
     } else if (isHighlighted(section2)) {
       bgImg = "f2";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       hoverHigh(fVarId, window[fVarId]);
       fadeOut(about);
       fadeOut(contact);
     } else if (isHighlighted(section3)) {
       bgImg = "sk2";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       hoverHigh(skVarId, window[skVarId]);
     } else if (isHighlighted(section4)) {
       bgImg = "sa1";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       hoverHigh(saVarId, window[saVarId]);
     } else if (isHighlighted(section5)) {
       bgImg = "gu1";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       hoverHigh(guVarId, window[guVarId]);
     } else if (isHighlighted(section6)) {
       bgImg = "tc1";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       hoverHigh(tcVarId, window[tcVarId]);
     } else if (isHighlighted(section7)) {
       bgImg = "hitungbmi";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       // hoverHigh("", section7);
     } else if (isHighlighted(section8)) {
       bgImg = "mobpro2";
+      sidebar.classList.add("w3-round-xlarge");
+      nav.style.padding = "32px 40px";
       // hoverHigh("", section8);
       section9.classList.remove("highlighted");
       fadeOut(about);
