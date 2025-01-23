@@ -35,7 +35,7 @@ function hoverName(element) {
 
 const resume = document.getElementById("viewResume");
 resume.addEventListener("click", function () {
-  window.open("https://drive.google.com/file/d/1WBCvyLmUBuSXLa7OuRPSo7HA2-jRJlFj/view?usp=drive_link", "_blank");
+  window.open("https://drive.google.com/file/d/1nQ2A94773SQ6oRhmNPvV6Gugh6N3QcOo/view?usp=sharing", "_blank");
 });
 
 const email = document.getElementById("email");
